@@ -13,8 +13,8 @@ const Cart = () => {
           <div className="lg:pr-10">
             <h4 className="font-extrabold pb-2">1 Course in Cart</h4>
             {[1, 2, 3].map((item) => (
-              <div className="mt-4">
-                <CartItem />
+              <div className="mt-4" key={item}>
+                <CartItem cartItem />
               </div>
             ))}
           </div>
