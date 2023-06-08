@@ -8,9 +8,9 @@ import { signOut, signIn, useSession, getProviders } from "next-auth/react";
 import DarkModeButton from "./DarkModeButton";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import { ShoppingBagIcon } from "@heroicons/react/24/outline";
+import Dropdown from "./Dropdown";
 const Navbar = () => {
   const { data: session } = useSession();
-  console.log(session)
   const [providers, setProviders] = useState(null);
   useEffect(() => {
     const setUpProviders = async () => {
@@ -24,7 +24,7 @@ const Navbar = () => {
 
   //const session = false
   return (
-    <nav className="w-full px-1 sm:px-10 py-3 border-b z-10 shadow-sm dark:border-b-gray-600">
+    <nav className="w-full px-1 relative sm:px-10 py-3 border-b z-10 shadow-sm dark:border-b-gray-600">
       <div className="flex">
       <div className="basis-1/3 md:basis-1/3">
       <div onClick={()=>setNav(!nav)} className='block sm:hidden z-10'>
@@ -68,18 +68,30 @@ const Navbar = () => {
         {
           session? (
             <>
-              <div className="relative ml-1 pr-1 pb-1">
+              
+              <Dropdown>
+                <Dropdown.Button>
+                <div className="relative ml-1 pr-1 pb-1">
                 <ShoppingBagIcon className="h-8 w-8 text-gray-900 dark:text-gray-500"/>
                 <span className="absolute bottom-0 right-0 border-2 rounded-full overflow-hidden text-xs bg-white z-10">4</span>
               </div>
-              <div className="h-10 w-10 rounded-full overflow-hidden relative ml-1 mr-1">
-              <Image
-                className="inli"
-                src="/course-image.jpg"
-                fill
-                alt={"course-image"}
-              />
-             </div>
+                </Dropdown.Button>
+                <Dropdown.Content>Lalaal</Dropdown.Content>
+              </Dropdown>
+              
+              <Dropdown>
+                <Dropdown.Button>
+                  <div className="h-10 w-10 rounded-full overflow-hidden relative ml-1 mr-1">
+                    <Image
+                      className="inli"
+                      src="/course-image.jpg"
+                      fill
+                      alt={"course-image"}
+                    />
+                  </div>
+                </Dropdown.Button>
+                <Dropdown.Content>Lalaal</Dropdown.Content>
+              </Dropdown>
              <Button styles="bg-red-950 text-gray-100 ml-1" handleClick={()=>signOut()}>Logout</Button>
             </>
           ): (

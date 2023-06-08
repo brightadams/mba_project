@@ -21,14 +21,14 @@ const Tabs: React.FC<TabsProps> = ({ children }) => {
   const changeTab = () => {};
   return (
     <div>
-      <div>
+      {/* <div>
         {React.Children.map(children, (child, index) => {
           if (React.isValidElement(child) && child.type === Tab) {
             return React.cloneElement(child);
           }
           return null;
         })}
-      </div>
+      </div> */}
     </div>
   );
 };
@@ -63,7 +63,7 @@ const Content = ({ children }: Content) => {
   return <div>hahah</div>;
 };
 
-Tabs.Tab = Tab;
-Tabs.Title = Title;
-Tabs.Content = Content;
+// Tabs.Tab = Tab;
+// Tabs.Title = Title;
+// Tabs.Content = Content;
 export default Tabs;

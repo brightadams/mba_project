@@ -3,7 +3,7 @@ import { PlayCircleIcon, BookOpenIcon } from "@heroicons/react/24/outline";
 const Course = ({ params }: { params: { id: string } }) => {
   return (
     <div className="flex">
-      <div className="basis-3/12 h-screen sticky top-0 overflow-scroll">
+      <div className="hidden lg:flex lg:flex-col lg:basis-3/12 h-screen sticky top-0 overflow-scroll">
         <div>
           {[1, 2, 3, 4, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map(
             (item, index) => (
@@ -11,6 +11,7 @@ const Course = ({ params }: { params: { id: string } }) => {
                 className={`flex py-3 border-b border-b-gray-400 dark:border-b-gray-800 ${
                   index === 1 && "border-l-8 border-l-blue-500"
                 }`}
+                key={index}
               >
                 <div className="basis-2/12 items-center justify-center flex">
                   {index % 2 === 0 ? (
@@ -31,18 +32,12 @@ const Course = ({ params }: { params: { id: string } }) => {
           )}
         </div>
       </div>
-      <div className="basis-9/12 bg-red-500 max-h-max">
+      <div className="w-full lg:basis-9/12 max-h-max">
         <div className="h-10 w-full bg-black flex flex-col justify-center">
           <span className="text-white pl-5">Title of course video</span>
         </div>
-        <video src="/video.mp4" controls />
-        <div>
-          {[1, 2, 3, 4, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map(
-            (item) => (
-              <span className="my-10 block">{item}</span>
-            )
-          )}
-        </div>
+        <video src="https://neilpatel.com/blog/embed-videos/" controls />
+        <div></div>
       </div>
     </div>
   );

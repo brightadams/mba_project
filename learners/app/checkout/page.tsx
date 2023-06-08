@@ -31,8 +31,8 @@ const Checkout = () => {
             <div className="flex-grow border-t border-gray-400"></div>
           </div>
           <div>
-            {[1, 2, 3].map((item) => (
-              <CartItem />
+            {[1, 2, 3].map((item, index) => (
+              <CartItem key={index} />
             ))}
           </div>
         </div>
@@ -48,7 +48,7 @@ const Checkout = () => {
             <span>Discounts</span>
             <span>$100.00</span>
           </div>
-          <div className="hidden lg:flex lg:justify-between pb-3 pt-2">
+          <div className="flex justify-between pb-3 pt-2">
             <span className="text-xl font-extrabold">Total</span>
             <span className="text-xl font-extrabold">$24.56</span>
           </div>
@@ -58,9 +58,9 @@ const Checkout = () => {
             </Button>
           </div>
 
-          <div className="fixed bottom-0 left-0 right-0 lg:hidden lg:h-screen">
+          <div className="fixed bottom-0 left-0 right-0 lg:hidden lg:h-screen bg-gray-100 dark:bg-zinc-900 pt-3 rounded shadow-xl z-10">
             <div className="flex flex-col">
-              <div className="flex justify-between">
+              <div className="flex justify-between px-3">
                 <span className="text-xl font-extrabold">Total</span>
                 <span className="text-xl font-extrabold">$24.56</span>
               </div>
