@@ -18,7 +18,7 @@ const Card = () => {
           Name of Course
         </span>
         <div className="flex justify-between">
-          <span>$70</span>
+          <span>¢70</span>
           <span>4.5</span>
         </div>
         <div className="flex justify-between">

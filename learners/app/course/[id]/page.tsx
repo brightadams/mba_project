@@ -1,3 +1,5 @@
+"use client";
+import NewTab from "../../NewTab";
 import { PlayCircleIcon, BookOpenIcon } from "@heroicons/react/24/outline";
 
 const Course = ({ params }: { params: { id: string } }) => {
@@ -36,8 +38,23 @@ const Course = ({ params }: { params: { id: string } }) => {
         <div className="h-10 w-full bg-black flex flex-col justify-center">
           <span className="text-white pl-5">Title of course video</span>
         </div>
-        <video src="https://neilpatel.com/blog/embed-videos/" controls />
-        <div></div>
+        <video src="/video.mp4" controls />
+        <div>
+          <NewTab>
+            <NewTab.TabList>
+              <NewTab.Title>Course Overview</NewTab.Title>
+              <NewTab.Title>Course Content</NewTab.Title>
+              <NewTab.Title>Reviews</NewTab.Title>
+              <NewTab.Title>Anouncements</NewTab.Title>
+            </NewTab.TabList>
+            <NewTab.Panels>
+              <NewTab.Panel>Tab 1</NewTab.Panel>
+              <NewTab.Panel>Tab 2</NewTab.Panel>
+              <NewTab.Panel>Tab 3</NewTab.Panel>
+              <NewTab.Panel>Tab 4</NewTab.Panel>
+            </NewTab.Panels>
+          </NewTab>
+        </div>
       </div>
     </div>
   );

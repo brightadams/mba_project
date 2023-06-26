@@ -26,7 +26,7 @@ const TabContainer: React.FC<TabContainerProps> = ({ children }) => {
 
   return (
     <div>
-      {/* <div className="flex border-b border-gray-300 mb-4">
+      <div className="flex border-b border-gray-300 mb-4">
         {React.Children.map(children, (child, index) => {
           if (React.isValidElement(child) && child.type === TabTitle) {
             const isActive = index === activeTab;
@@ -38,7 +38,6 @@ const TabContainer: React.FC<TabContainerProps> = ({ children }) => {
       <div>
         {React.Children.map(children, (child, index) => {
           if (React.isValidElement(child) && child.type === TabContent) {
-            console.log(activeTab, index, "here");
             return React.cloneElement(child, {
               isActive: index === activeTab + 3,
               changeTab,
@@ -47,7 +46,7 @@ const TabContainer: React.FC<TabContainerProps> = ({ children }) => {
           }
           return null;
         })}
-      </div> */}
+      </div>
     </div>
   );
 };

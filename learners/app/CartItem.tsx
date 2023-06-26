@@ -44,7 +44,7 @@ const CartItem = ({ cartItem }: Props) => {
       </div>
       <div className="basis-1/12 flex flex-col py-2 items-center">
         <span className="text-center dark:text-white font-semibold text-3xl">
-          $13
+          ¢13
         </span>
         <br></br>
         <span className="line-through text-center dark:text-white">$100</span>

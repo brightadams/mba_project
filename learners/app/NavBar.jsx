@@ -7,10 +7,11 @@ import { useEffect, useState } from "react";
 import { signOut, signIn, useSession, getProviders } from "next-auth/react";
 import DarkModeButton from "./DarkModeButton";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
-import { ShoppingBagIcon } from "@heroicons/react/24/outline";
+import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 import Dropdown from "./Dropdown";
+import ProfileDropdownContent from "./ProfileDropdownContent";
 const Navbar = () => {
-  const { data: session } = useSession();
+  const { data: session, loading } = useSession();
   const [providers, setProviders] = useState(null);
   useEffect(() => {
     const setUpProviders = async () => {
@@ -21,21 +22,24 @@ const Navbar = () => {
     setUpProviders();
   }, []);
   const [nav, setNav] = useState(false);
+  const [sideOpen, setSideOpen] = useState(false)
 
   //const session = false
   return (
     <nav className="w-full px-1 relative sm:px-10 py-3 border-b z-10 shadow-sm dark:border-b-gray-600">
       <div className="flex">
-      <div className="basis-1/3 md:basis-1/3">
-      <div onClick={()=>setNav(!nav)} className='block sm:hidden z-10'>
-          {nav ? (
-            <XMarkIcon className="h-4 w-4 text-gray-100 dark:text-white z-40" />
-          ) : (
-            <Bars3Icon className="h-4 w-4 text-gray-900 dark:text-white" />
-          )}
+      <div className="flex basis-1/3 md:basis-1/3 items-center">
+        <div onClick={()=>setSideOpen(true)} className='inline lg:hidden z-10'>
+          <Bars3Icon className="h-4 w-4 text-gray-900 dark:text-white" />
         </div>
-        <span className="text-size-lg"><Link href='/'>Logoo</Link></span>
-        
+        <span className="text-size-lg"><Link href='/'><Image src={"/logo.png"} alt="logo" width={100} height={50}/></Link></span>
+        <div
+          className={`transform top-0 left-0 w-screen bg-gray-900 bg-opacity-50 fixed h-full overflow-auto ease-in-out transition-all duration-300 z-30 ${sideOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+            <div className="absolute top-0 bottom-0 right-0 left-0 bg-opacity-50" onClick={()=>setSideOpen(false)}/>
+            <div className="w-9/12 bg-white h-screen z-20" onClick={()=>console.log("nav")}>
+
+            </div>
+        </div>
         {/* Mobile Menu */}
         <div>
           <div
@@ -72,8 +76,8 @@ const Navbar = () => {
               <Dropdown>
                 <Dropdown.Button>
                 <div className="relative ml-1 pr-1 pb-1">
-                <ShoppingBagIcon className="h-8 w-8 text-gray-900 dark:text-gray-500"/>
-                <span className="absolute bottom-0 right-0 border-2 rounded-full overflow-hidden text-xs bg-white z-10">4</span>
+                <ShoppingCartIcon className="h-10 w-10 text-gray-900 dark:text-gray-500"/>
+                <div className="flex justify-center items-center absolute top-0 right-0 rounded-full overflow-hidden text-xs bg-black z-10 text-white w-3 h-3">4</div>
               </div>
                 </Dropdown.Button>
                 <Dropdown.Content>Lalaal</Dropdown.Content>
@@ -90,19 +94,24 @@ const Navbar = () => {
                     />
                   </div>
                 </Dropdown.Button>
-                <Dropdown.Content>Lalaal</Dropdown.Content>
+                <Dropdown.Content>
+                <div className="w-[200px] flex flex-col mr-10 relative right-40 bg-white">
+                  <ProfileDropdownContent/>
+                </div>
+                </Dropdown.Content>
               </Dropdown>
-             <Button styles="bg-red-950 text-gray-100 ml-1" handleClick={()=>signOut()}>Logout</Button>
+             {/* <Button styles="bg-red-950 text-gray-100 ml-1" handleClick={()=>signOut()}>Logout</Button> */}
             </>
           ): (
             <>
-              <Button styles="bg-gray-200 text-black-900 ml-1"><span className="text-md">Sign up</span></Button>
-              <Button styles="bg-slate-950 text-gray-100 ml-1" handleClick={()=>signIn()}><span className="text-[3/4] sm:text-md">Sign up</span></Button>
+              <Button styles="bg-gray-200 text-black-900 ml-1"><span className="text-md"><Link href={"/register"}>Sign up</Link></span></Button>
+              <Button styles="bg-slate-950 text-gray-100 ml-1" handleClick={(e)=>{
+                e.preventDefault()
+                signIn()}}><span className="text-[3/4] sm:text-md">Sign in</span></Button>
             </>
           )
         }
-        
-        
+        <Button handleClick={()=>signOut()}>Logout</Button>
       </div>
       </div>
     </nav>
