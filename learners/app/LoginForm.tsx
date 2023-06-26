@@ -1,9 +1,10 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 const schema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
   password: z.string(),
@@ -12,20 +13,23 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 const LoginForm = () => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
   } = useForm<FormData>({ resolver: zodResolver(schema) });
-  const onSubmit = (data: FieldValues) => {
+  const [loginErr, setLoginErr] = useState("");
+
+  const onSubmit = async (data: FieldValues) => {
     //if (!isValid) return;
-    const result = signIn("credentials", {
+    const res = await signIn("credentials", {
       email: data.email,
       password: data.password,
-      redirect: true,
-      callbackUrl: "/",
+      redirect: false,
     });
-    console.log(result, "results");
+    if (res?.error) return setLoginErr(res.error);
+    router.replace("/");
   };
   console.log(errors, isValid);
   return (
@@ -69,6 +73,11 @@ const LoginForm = () => {
             <span className="text-red-600 text-xs">
               {errors.password.message}
             </span>
+          )}
+        </div>
+        <div>
+          {loginErr && (
+            <span className="text-red-600 text-xs">Invalid email/password</span>
           )}
         </div>
         <button

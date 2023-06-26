@@ -8,26 +8,24 @@ const schema = z
     firstName: z.string().min(3),
     lastName: z.string().min(3),
     email: z.string().email({ message: "Invalid email address" }),
-    password: z
-      .string()
-      .min(8, {
-        message: "Password must be at least 8 characters long",
-      })
-      .max(100)
-      .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/, {
-        message:
-          "Password must contain at least 8 characters, one uppercase, one lowercase, one number and one special character",
-      }),
-    confirmPassword: z
-      .string()
-      .min(8, {
-        message: "Password must be at least 8 characters long",
-      })
-      .max(100)
-      .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/, {
-        message:
-          "Password must contain at least 8 characters, one uppercase, one lowercase, one number and one special character",
-      }),
+    password: z.string(),
+    // .min(8, {
+    //   message: "Password must be at least 8 characters long",
+    // })
+    // .max(100)
+    // .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/, {
+    //   message:
+    //     "Password must contain at least 8 characters, one uppercase, one lowercase, one number and one special character",
+    // }),
+    confirmPassword: z.string(),
+    // .min(8, {
+    //   message: "Password must be at least 8 characters long",
+    // })
+    // .max(100)
+    // .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/, {
+    //   message:
+    //     "Password must contain at least 8 characters, one uppercase, one lowercase, one number and one special character",
+    // }),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords don't match",
@@ -42,7 +40,13 @@ const RegisterForm = () => {
     handleSubmit,
     formState: { errors, isValid },
   } = useForm<FormData>({ resolver: zodResolver(schema) });
-  const onSubmit = (data: FieldValues) => console.log(data, errors, isValid);
+  const onSubmit = async (data: FieldValues) => {
+    const res = await fetch("/api/auth/users", {
+      method: "POST",
+      body: JSON.stringify(data),
+    }).then((res) => res.json());
+    console.log(res);
+  };
   console.log(errors, isValid);
   return (
     <div>

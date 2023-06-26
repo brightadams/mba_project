@@ -10,39 +10,52 @@ const authOptions: NextAuthOptions = {
     CredentialsProvider({
       // The name to display on the sign in form (e.g. "Sign in with...")
       name: "Credentials",
-      // `credentials` is used to generate a form on the sign in page.
-      // You can specify which fields should be submitted, by adding keys to the `credentials` object.
-      // e.g. domain, username, password, 2FA token, etc.
-      // You can pass any HTML attribute to the <input> tag through the object.
       credentials: {
       },
       async authorize(credentials, req) {
 
         try {
           await connectToDB()
-          const {email, password} = credentials as any;
-  
-          // Add logic here to look up the user from the credentials supplied
-          //check if a user already exists
-          const userExists = await User.findOne({
-            email
-          })
-    
-          if (userExists) {
-            // Any object returned will be saved in `user` property of the JWT
-            return userExists;
-          } else {
-            // If you return null then an error will be displayed advising the user to check their details.
-            return null
-    
-            // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
+          const {email, password} = credentials as {
+            email: string,
+            password: string
+          };
+          const user = await User.findOne({email})
+
+          if(!user) throw Error("email/password mismatch");
+
+          const passwordMatch = await user.comparePassword(password);
+          if(!passwordMatch) throw Error("email/password mismatch");
+          
+          return {
+            name: user.lastName,
+            email: user.email,
+            role: user.role,
+            id: user._id
           }
         } catch (error) {
-          
+          return null;
         }
       }
     })
   ],
+  callbacks: {
+    jwt(params:any){
+      if(params.user?.role){
+        params.token.role = params.user.role;
+        params.token.id = params.user.id;
+      }
+      return params.token;
+    },
+    session({session, token}){
+      if(session.user){
+        (session.user as {id: string}).id = token.id as string;
+        (session.user as {role: string}).role = token.role as string;
+
+      }
+      return session
+    }
+  },
   pages: {
     signIn: "/login"
   }
