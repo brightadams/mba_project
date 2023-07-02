@@ -20,11 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-white dark:bg-gray-900 dark:text-gray-600 transition-all duration-700">
-        <Providers session={session}>
-          <Navbar />
-          {children}
-          <Footer />
-        </Providers>
+        <Providers session={session}>{children}</Providers>
       </body>
     </html>
   );

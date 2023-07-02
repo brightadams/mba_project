@@ -31,7 +31,6 @@ const LoginForm = () => {
     if (res?.error) return setLoginErr(res.error);
     router.replace("/");
   };
-  console.log(errors, isValid);
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>

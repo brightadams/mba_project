@@ -40,7 +40,7 @@ const Tab = ({ children }: TabProps) => {
           return React.cloneElement(child, {
             activeTab,
             setActiveTab: (tab: number) => setActiveTab(tab),
-          });
+          } as TabListProps);
         }
         return null;
       })}
@@ -50,7 +50,7 @@ const Tab = ({ children }: TabProps) => {
             return React.cloneElement(child, {
               activeTab,
               setActiveTab: (tab: number) => setActiveTab(tab),
-            });
+            } as PanelsProps);
           }
           return null;
         })}
@@ -64,12 +64,12 @@ const TabList = ({ children, activeTab, setActiveTab }: TabListProps) => {
     <ul className="flex flex-wrap -mb-px">
       {React.Children.map(children, (child, index) => {
         if (React.isValidElement(child) && child.type === Title) {
-          const active = activeTab === index;
+          const active: any = activeTab === index;
           return React.cloneElement(child, {
             active,
-            setActiveTab: (tab: number) => setActiveTab(tab),
+            setActiveTab: (tab: number) => setActiveTab && setActiveTab(tab),
             index,
-          });
+          } as TitleProps);
         }
         return null;
       })}
@@ -78,7 +78,10 @@ const TabList = ({ children, activeTab, setActiveTab }: TabListProps) => {
 };
 const Title = ({ children, active, setActiveTab, index }: TitleProps) => {
   return (
-    <li className="mr-2" onClick={() => setActiveTab(index)}>
+    <li
+      className="mr-2"
+      onClick={() => setActiveTab && setActiveTab(index as number)}
+    >
       <span
         className={`inline-block p-4 ${
           active &&
@@ -99,7 +102,7 @@ const Panels = ({ children, activeTab }: PanelsProps) => {
           const active = activeTab === index;
           return React.cloneElement(child, {
             active,
-          });
+          } as PanelProps);
         }
         return null;
       })}

@@ -2,7 +2,7 @@ import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider  from 'next-auth/providers/credentials';
 import User from "@/models/user";
 import {connectToDB} from "@/utils/database"
-const authOptions: NextAuthOptions = {
+export const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt",
   },
@@ -57,7 +57,7 @@ const authOptions: NextAuthOptions = {
     }
   },
   pages: {
-    signIn: "/login"
+    signIn: "/auth/login"
   }
 };
 

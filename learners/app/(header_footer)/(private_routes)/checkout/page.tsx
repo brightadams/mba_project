@@ -1,8 +1,8 @@
 import React from "react";
-import PaymentButtons from "../PaymentButtons";
-import DebitCreditForm from "../DebitCreditForm";
-import CartItem from "../CartItem";
-import Button from "../Button";
+import PaymentButtons from "../../../PaymentButtons";
+import DebitCreditForm from "../../../DebitCreditForm";
+import CartItem from "../../../CartItem";
+import Button from "../../../Button";
 
 const Checkout = () => {
   return (

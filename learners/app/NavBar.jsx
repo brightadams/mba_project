@@ -104,7 +104,7 @@ const Navbar = () => {
             </>
           ): (
             <>
-              <Button styles="bg-gray-200 text-black-900 ml-1"><span className="text-md"><Link href={"/register"}>Sign up</Link></span></Button>
+              <Button styles="bg-gray-200 text-black-900 ml-1"><span className="text-md"><Link href={"/auth/register"}>Sign up</Link></span></Button>
               <Button styles="bg-slate-950 text-gray-100 ml-1" handleClick={(e)=>{
                 e.preventDefault()
                 signIn()}}><span className="text-[3/4] sm:text-md">Sign in</span></Button>

@@ -1,8 +1,8 @@
 import React from "react";
 import Image from "next/image";
-import Button from "../Button";
+import Button from "../../../Button";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import CartItem from "../CartItem";
+import CartItem from "../../../CartItem";
 const Cart = () => {
   return (
     <div className=" px-2 lg:px-20">

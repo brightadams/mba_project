@@ -1,5 +1,5 @@
 "use client";
-import NewTab from "../../NewTab";
+import NewTab from "../../../../NewTab";
 import { PlayCircleIcon, BookOpenIcon } from "@heroicons/react/24/outline";
 
 const Course = ({ params }: { params: { id: string } }) => {

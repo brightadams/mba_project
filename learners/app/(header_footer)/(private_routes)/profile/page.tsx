@@ -1,5 +1,5 @@
 "use client";
-import NewTab from "../NewTab";
+import NewTab from "../../../NewTab";
 
 const Profile = () => {
   return (

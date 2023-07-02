@@ -1,11 +1,20 @@
 import Image from "next/image";
 import { ClockIcon, UsersIcon, StarIcon } from "@heroicons/react/24/solid";
-const Card = () => {
+import { Course } from "./CoursesList";
+const Card = ({ course }: { course: Course }) => {
+  //console.log(course);
   return (
     <div className="border border-gray-100 rounded-lg overflow-hidden shadow-sm hover:scale-105 hover:shadow-lg transition-all duration-500 ease-out dark:border-gray-600 hover:z-10">
       <div className="relative">
         <div className="relative w-full h-72">
-          <Image src="/course-image.jpg" fill alt={"course-image.jpg"} />
+          <Image
+            src={
+              course.previewImage ||
+              "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGZpdG5lc3N8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60"
+            }
+            fill
+            alt={"course-image.jpg"}
+          />
         </div>
         <div className="absolute bottom-4 ml-1">
           <span className="bg-gray-100 text-gray-900 py-2 px-5 rounded-full dark:bg-gray-900 dark:text-gray-500">
@@ -15,14 +24,14 @@ const Card = () => {
       </div>
       <div className="px-8 py-1">
         <span className="text-xl font-sans font-extrabold dark:text-white">
-          Name of Course
+          {course.title}
         </span>
         <div className="flex justify-between">
-          <span>¢70</span>
+          <span>¢{course.price}</span>
           <span>4.5</span>
         </div>
         <div className="flex justify-between">
-          <span className="text-gray-400">Dr Emmanuel Awuni</span>
+          <span className="text-gray-400">{course.tutorId?.name}</span>
           <span>5hrs</span>
         </div>
         <div className="flex justify-between">
